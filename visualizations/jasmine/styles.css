@@ -1,0 +1,15 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+#map-container {
+  width: 100%;
+  margin: 0 auto;
+}
+svg {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omar's D3 Visualization</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            color: white; 
+            background-color: #202124;
+            padding: 10px;
+            max-width: 1300px; 
+            margin: auto; /* Center the content */
+        }
+        #map-container { flex: 2.2; position: relative; }
+        #barchart-container { flex: 1; padding-left: 10px; }
+        h1, h2 { color: white; font-size: 1.2em; margin-bottom: 10px; }
+        .state { stroke: #fff; stroke-width: 0.5px; /* Base state style */ }
+        .state:hover {}
+         
+         .state-hover {
+             stroke: #fff;
+             stroke-width: 4px; 
+            
+         }
+        .state.active {
+            stroke: #fff; /* Use a bright stroke for active state */
+            stroke-width: 2px; 
+            /* fill and fill-opacity are now handled by JS */
+        }
+        .bar { /* Add styles if needed */ }
+        /* Ensure axis text is white */
+        .axis-label,
+        .tick text {
+             fill: white;
+             font-size: 9px; /* Slightly smaller axis text */
+        }
+        .chart-title { font-size: 12px; font-weight: bold; text-anchor: middle; fill: white; }
+        /* Style the axes lines/domain if needed */
+        .tick line { stroke: #555; }
+        .domain { stroke: #777; }
 
+    </style>
+</head>
+<body>
+
+<div id="map-container">
+    <h1>US Event Counts by State</h1>
+    <div id="map"></div>
+</div>
+<div id="barchart-container">
+    <h2>State Details</h2>
+    <div id="state-barchart"></div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script> 
+<script type="module">
+    import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+    import define from "./script.js";
+
+    const runtime = new Runtime();
+    const main = runtime.module(define, name => {
+      if (name === "mapChart") { 
+        return new Inspector(document.querySelector("#map"));
+      }
+    
+    });
+
+</script>
+
+</body>
+</html>

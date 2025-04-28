@@ -12,8 +12,14 @@
         <h1><a href="/" style="color: inherit; text-decoration: none;">Haunted Legends</a></h1>
     </header>
     <main>
-        <!-- Embed the US Map Visualization -->
-        <iframe src="visualizations/jasmine/index.html" width="100%" height="600" style="border:none;"></iframe>
+        <!-- Container for scaling -->
+        <div style="height: 700px; /* Adjust as needed */ width: 100%; overflow: hidden;">
+            <!-- Embed the US Map Visualization -->
+            <iframe 
+                src="visualizations/jasmine/index.html" 
+                style="border:none; width: 100%; height: 100%;">
+            </iframe>
+        </div>
     </main>
 </body>
 </html>

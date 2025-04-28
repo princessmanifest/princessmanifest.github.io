@@ -8,28 +8,27 @@
         body {
             font-family: sans-serif;
             display: flex;
-            color: white; 
-            background-color: #202124;
-            padding: 10px;
-            max-width: 1300px; 
-            margin: auto; /* Center the content */
+            color: white; /* Default text color */
+            background-color: #1a1a2e; /* Match outer page background */
+            padding: 10px; /* Reduced padding slightly */
+            /* Removed max-width and margin:auto as iframe controls size */
         }
-        #map-container { flex: 2.2; position: relative; }
+        #map-container { flex: 2.2; /* Give map more space */ position: relative; }
         #barchart-container { flex: 1; padding-left: 10px; }
         h1, h2 { color: white; font-size: 1.2em; margin-bottom: 10px; }
-        .state { stroke: #fff; stroke-width: 0.5px; /* Base state style */ }
-        .state:hover {}
-         
-         .state-hover {
-             stroke: #fff;
-             stroke-width: 4px; 
-            
-         }
-        .state.active {
-            stroke: #fff; /* Use a bright stroke for active state */
-            stroke-width: 2px; 
-            /* fill and fill-opacity are now handled by JS */
+        .state {
+             /* stroke: #fff; */ /* Removed state stroke */
+             /* stroke-width: 0.5px; */
         }
+        /* Style for non-active state on hover */
+        .state-hover {
+            /* stroke: #fff; */ /* Removed state stroke */
+            /* stroke-width: 2px; */
+        }
+         .state.active {
+             /* stroke: #fff; */ /* Removed state stroke */
+             /* stroke-width: 2px; */
+         }
         .bar { /* Add styles if needed */ }
         /* Ensure axis text is white */
         .axis-label,

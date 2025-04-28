@@ -1,7 +1,9 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
+  margin: 20px;
+  background-color: #1a1a2e; /* Changed to match main page */
+  color: white; /* Default text white */
   text-align: center;
-  margin: 0;
   padding: 0;
 }
 
@@ -12,4 +14,32 @@ body {
 svg {
   max-width: 100%;
   height: auto;
+}
+
+h1 {
+    color: white;
+    font-size: 1.5em; /* Example size */
+}
+
+label {
+    color: white;
+    margin-right: 5px;
+}
+
+select {
+    /* Basic styling for dropdown */
+    padding: 5px;
+}
+
+/* Ensure state strokes are visible */
+.state {
+  stroke: #fff; /* White stroke for state borders */
+  stroke-width: 0.5px;
+}
+
+.tooltip {
+  /* Tooltip style from script.js - maybe adjust background/color */
+  background: #333 !important; /* Darker tooltip background */
+  color: white !important; /* White tooltip text */
+  border: 1px solid #777 !important;
 }

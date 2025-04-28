@@ -1,4 +1,4 @@
-// Set up dimensions
+// Set up dimensions (reverted)
 const width = 975, height = 610;
 
 // Create an SVG container

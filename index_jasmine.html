@@ -1,67 +1,25 @@
+<!-- index1.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghosts in the Mind: Mapping Death and Delusion in America</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://d3js.org/topojson.v3.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted Legends</title>
+    <link rel="stylesheet" href="style.css">
+
+
 </head>
 <body>
-  <h1>Ghosts in the Mind</h1>
-  <h2>Mapping Death and Delusion in America</h2>
-
-  <p>
-    <strong>What drives people to report haunted places?</strong><br>
-    This visualization explores potential links between rates of Alzheimer's Disease, Drug Overdose, and Alcohol Abuse and the number of reported haunted locations across the United States.
-    By selecting each cause of death, you can observe patterns that may hint at how cognitive decline, substance use, and emotional instability could influence perceptions of paranormal activity.
-  </p>
-
-  <div id="map-controls">
-    <label for="death-select">Select Death Cause:</label>
-    <select id="death-select">
-      <option value="alzh_normalized">Alzheimer's</option>
-      <option value="overd_normalized">Overdose</option>
-      <option value="alc_normalized">Alcohol Abuse</option>
-    </select>
-  </div>
-
-  <div id="map-container"></div>
-
-  <div id="death-description" style="margin-top: 20px;">
-    <p><strong>Alzheimer's Disease:</strong> Alzheimer's Disease is associated with memory loss, confusion, and altered perceptions of reality.
-    When viewing Alzheimer's rates, states like Mississippi, Washington, Vermont, Arkansas, and Texas show darker shades, indicating higher death rates.
-    These regions may experience heightened vulnerabilities to cognitive distortion, potentially contributing to a greater number of haunted place reports.</p>
-  </div>
-
-  <script src="script.js"></script>
-
-  <script>
-    const descriptions = {
-      alzh_normalized: `
-        <p><strong>Alzheimer's Disease:</strong> Alzheimer's Disease is associated with memory loss, confusion, and altered perceptions of reality.
-        When viewing Alzheimer's rates, states like Mississippi, Washington, Vermont, Arkansas, and Texas show darker shades, indicating higher death rates.
-        These regions may experience heightened vulnerabilities to cognitive distortion, potentially contributing to a greater number of haunted place reports.</p>
-      `,
-      overd_normalized: `
-        <p><strong>Drug Overdose:</strong> Overdose deaths often reflect struggles with substance use and mental health challenges, both of which can affect perceptions and emotional experiences.
-        In states like West Virginia, Maine, Louisiana, New Mexico, and Arizona — the darkest in overdose rates — heightened emotional instability could play a role in increased haunted place reports.</p>
-      `,
-      alc_normalized: `
-        <p><strong>Alcohol Abuse:</strong> Chronic alcohol abuse can impair judgment, memory, and perception, possibly leading to misinterpretations of normal phenomena as paranormal.
-        States like California, Texas, Louisiana, Illinois, and Massachusetts stand out both for high alcohol-related death rates and large numbers of haunted place reports, suggesting a potential overlap between substance-related cognitive effects and the spread of paranormal stories.</p>
-      `
-    };
-
-    const select = document.getElementById('death-select');
-    const descriptionDiv = document.getElementById('death-description');
-
-    select.addEventListener('change', (event) => {
-      const value = event.target.value;
-      descriptionDiv.innerHTML = descriptions[value];
-    });
-  </script>
-
-</body>
-</html>
+    <header>
+        <h1><a href="/" style="color: inherit; text-decoration: none;">Ghosts in the Mind</a></h1>
+    </header>
+    <main>
+        <!-- Container for scaling -->
+        <div style="height: 700px; /* Adjust as needed */ width: 100%; overflow: hidden;">
+            <!-- Embed the US Map Visualization -->
+            <iframe 
+                src="visualizations/jasmine/index.html" 
+                style="border:none; width: 100%; height: 100%;">
+            </iframe>
+        </div>
+    </main>

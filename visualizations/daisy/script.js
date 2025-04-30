@@ -48,7 +48,7 @@ d3.json("./data/apparition_yearly.json").then(data => {
   const paths = svg.selectAll("path")
     .data(stackedData)
     .join("path")
-    .attr("class", d => "layer layer-" + d.key.replace(/\s+/g, '-'))
+    .attr("class", d => "layer layer-" + d.key.replace(/\\s+/g, '-'))
     .attr("fill", d => color(d.key))
     .attr("d", area)
     .style("opacity", 0.85)
@@ -63,7 +63,6 @@ d3.json("./data/apparition_yearly.json").then(data => {
     })
     .on("mouseout", () => tooltip.style("visibility", "hidden"));
 
-  // Axes
   svg.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(x).tickFormat(d3.format("d")))
@@ -77,13 +76,12 @@ d3.json("./data/apparition_yearly.json").then(data => {
 
   svg.selectAll(".domain, .tick line").attr("stroke", "#777");
 
-  // Legend
   const legend = svg.append("g")
     .attr("transform", `translate(${width + 20}, 0)`)
     .attr("class", "legend");
 
   keys.forEach((key, i) => {
-    const safeKey = key.replace(/\s+/g, '-');
+    const safeKey = key.replace(/\\s+/g, '-');
 
     const row = legend.append("g")
       .attr("transform", `translate(0, ${i * 20})`)

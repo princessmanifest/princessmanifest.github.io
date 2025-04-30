@@ -1,94 +1,88 @@
-const margin = { top: 30, right: 150, bottom: 40, left: 60 },
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghosts Across Time</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      color: white;
+      background-color: #1a1a2e;
+      padding: 20px;
+      margin: 0;
+    }
 
-const svg = d3.select("#chart")
-  .append("svg")
-  .attr("viewBox", [0, 0, width + margin.left + margin.right + 150, height + margin.top + margin.bottom])
-  .append("g")
-  .attr("transform", `translate(${margin.left},${margin.top})`);
+    h1 {
+      color: #ff4d4d;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 0;
+    }
 
-const tooltip = d3.select("#chart")
-  .append("div")
-  .style("position", "absolute")
-  .style("visibility", "hidden")
-  .style("background", "white")
-  .style("color", "#111")
-  .style("border", "1px solid #ccc")
-  .style("padding", "6px")
-  .style("border-radius", "4px")
-  .style("font-size", "12px");
+    h2 {
+      color: white;
+      text-align: center;
+      margin-top: 5px;
+    }
 
-d3.json("./data/apparition_yearly.json").then(data => {
-  const keys = Object.keys(data[0]).filter(k => k !== "Year");
+    p.description {
+      max-width: 960px;
+      margin: 15px auto 30px auto;
+      color: white;
+      font-size: 1em;
+      text-align: center;
+    }
 
-  const stackedData = d3.stack().keys(keys)(data);
+    #chart-container {
+      width: 100%;
+      max-width: 1600px;
+      margin: auto;
+    }
 
-  const x = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.Year))
-    .range([0, width]);
+    svg {
+      width: 100%;
+      height: auto;
+    }
 
-  const y = d3.scaleLinear()
-    .domain([0, d3.max(stackedData[stackedData.length - 1], d => d[1])])
-    .range([height, 0]);
+    .axis-label,
+    .tick text {
+      fill: white;
+      font-size: 12px;
+    }
 
-  const color = d3.scaleOrdinal()
-    .domain(keys)
-    .range(d3.schemeCategory10);
+    .tick line { stroke: #555; }
+    .domain { stroke: #777; }
 
-  const area = d3.area()
-    .curve(d3.curveBasis)
-    .x(d => x(d.data.Year))
-    .y0(d => y(d[0]))
-    .y1(d => y(d[1]));
+    .layer {
+      opacity: 0.85;
+      cursor: pointer;
+    }
 
-  svg.selectAll("path")
-    .data(stackedData)
-    .join("path")
-    .attr("fill", d => color(d.key))
-    .attr("d", area)
-    .on("mouseover", function(event, d) {
-      tooltip.style("visibility", "visible")
-             .html(`<strong>${d.key}</strong>`);
-    })
-    .on("mousemove", function(event) {
-      tooltip
-        .style("top", (event.pageY - 10) + "px")
-        .style("left", (event.pageX + 10) + "px");
-    })
-    .on("mouseout", () => tooltip.style("visibility", "hidden"));
+    .legend rect {
+      cursor: pointer;
+    }
 
-  svg.append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format("d")))
-    .selectAll("text")
-    .style("fill", "white");
+    .legend text {
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
 
-  svg.append("g")
-    .call(d3.axisLeft(y))
-    .selectAll("text")
-    .style("fill", "white");
+<h1>Ghosts Across Time</h1>
+<h2>Mapping Apparition Types from 1700 to 2020</h2>
+<p class="description">
+  This visualization explores the historical patterns of reported ghost sightings. <br>
+  <strong>Click on a colored area or legend to highlight a specific apparition type.</strong>
+</p>
 
-  svg.selectAll(".domain, .tick line").attr("stroke", "#777");
+<div id="chart-container">
+  <div id="chart"></div>
+</div>
 
-  // Add legend
-  const legend = svg.append("g")
-    .attr("transform", `translate(${width + 20}, 0)`);
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script type="module" src="./script.js"></script>
 
-  keys.forEach((key, i) => {
-    const row = legend.append("g")
-      .attr("transform", `translate(0, ${i * 20})`);
-
-    row.append("rect")
-      .attr("width", 12)
-      .attr("height", 12)
-      .attr("fill", color(key));
-
-    row.append("text")
-      .attr("x", 16)
-      .attr("y", 10)
-      .text(key)
-      .style("fill", "white")
-      .style("font-size", "10px");
-  });
-});
+</body>
+</html>

@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Regional Word Clouds</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/d3-cloud/build/d3.layout.cloud.js"></script>
+  <script type="module" src="./main.js"></script>
+  <body>
+    <div id="grid-container">
+      <div id="northeast" class="region"></div>
+      <div id="midwest" class="region"></div>
+      <div id="south" class="region"></div>
+      <div id="west" class="region"></div>
+    </div>
+  </body>
+  
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    #grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      padding: 20px;
+      max-width: 1800px;
+      margin: auto;
+    }
+  
+    .region {
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fafafa;
+    }
+  
+    .region h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+  </style>
+  
+</head>
+<body>
+</body>
+</html>
+
 

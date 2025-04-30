@@ -3,24 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daisy's Haunted Visualization</title>
+  <title>Ghosts Across Time</title>
   <style>
     body {
       font-family: sans-serif;
       color: white;
       background-color: #1a1a2e;
       padding: 20px;
+      margin: 0;
     }
 
     h1 {
+      color: #ff4d4d;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    h2 {
       color: white;
-      font-size: 1.4em;
-      margin-bottom: 20px;
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    p.description {
+      max-width: 960px;
+      margin: 15px auto 30px auto;
+      color: white;
+      font-size: 1em;
+      text-align: center;
     }
 
     #chart-container {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1600px;
+      margin: auto;
     }
 
     svg {
@@ -31,22 +48,36 @@
     .axis-label,
     .tick text {
       fill: white;
-      font-size: 10px;
+      font-size: 12px;
     }
 
     .tick line { stroke: #555; }
     .domain { stroke: #777; }
 
     .layer {
-      opacity: 0.8;
+      opacity: 0.85;
+      cursor: pointer;
+    }
+
+    .legend rect {
+      cursor: pointer;
+    }
+
+    .legend text {
+      font-size: 12px;
     }
   </style>
 </head>
 <body>
 
-<h1>Spooky Statistics</h1>
+<h1>Ghosts Across Time</h1>
+<h2>Mapping Apparition Types from 1700 to 2020</h2>
+<p class="description">
+  This visualization explores the historical patterns of reported ghost sightings. <br>
+  <strong>Click on a colored area or legend to highlight a specific apparition type.</strong>
+</p>
+
 <div id="chart-container">
-  <h2>Temporal Trends in Reported Apparitions (1700–2020)</h2>
   <div id="chart"></div>
 </div>
 
@@ -55,4 +86,5 @@
 
 </body>
 </html>
+
 

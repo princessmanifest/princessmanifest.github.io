@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daisy's Haunted Visualization</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      color: white;
+      background-color: #1a1a2e;
+      padding: 20px;
+    }
+
+    h1 {
+      color: white;
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+
+    #chart-container {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .axis-label,
+    .tick text {
+      fill: white;
+      font-size: 10px;
+    }
+
+    .tick line { stroke: #555; }
+    .domain { stroke: #777; }
+
+    .layer {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chart-container">
+  <h1>Temporal Trends in Reported Apparitions (1700–2020)</h1>
+  <div id="chart"></div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script type="module" src="./script.js"></script>
+
+</body>
+</html>
 

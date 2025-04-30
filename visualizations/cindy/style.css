@@ -1,0 +1,27 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  
+  #grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    padding: 20px;
+    max-width: 1800px;
+    margin: auto;
+  }
+  
+  .region {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #fafafa;
+  }
+  
+  .region h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  

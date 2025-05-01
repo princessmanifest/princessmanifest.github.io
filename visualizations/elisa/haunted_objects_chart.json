@@ -1,65 +1,128 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Path to the JSON file
-    const jsonUrl = 'haunted_objects_chart.json';
-    
-    // Load the JSON data
-    fetch(jsonUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(chartData => {
-            // Create the plot using Plotly
-            const chartElement = document.getElementById('chart');
-            Plotly.newPlot('chart', chartData.data, chartData.layout, {responsive: true});
-            
-            // Add a legend click handler to filter data
-            chartElement.on('plotly_legendclick', function(eventData) {
-                // Get the color that was clicked
-                const clickedColor = eventData.data[0].marker.color[eventData.curveNumber];
-                
-                // Toggle visibility of bars with that color
-                const update = {
-                    visible: chartData.data[0].marker.color.map(color => color === clickedColor ? 'legendonly' : true)
-                };
-                
-                Plotly.update('chart', update, {}, [0]);
-                
-                // Prevent the default behavior (legend item toggling)
-                return false;
-            });
-            
-            // Add resize handler for responsiveness
-            window.addEventListener('resize', function() {
-                Plotly.Plots.resize('chart');
-            });
-            
-            // Add custom hover behavior
-            chartElement.on('plotly_hover', function(eventData) {
-                // Custom hover behavior can be added here if needed
-            });
-            
-            // Add custom click behavior
-            chartElement.on('plotly_click', function(eventData) {
-                // Get the point that was clicked
-                const pointIndex = eventData.points[0].pointIndex;
-                const objectName = chartData.data[0].x[pointIndex];
-                const hauntedScore = chartData.data[0].y[pointIndex];
-                
-                console.log(`Clicked on ${objectName} with haunted score ${hauntedScore}`);
-                // You could add more interactivity here, like showing additional details
-            });
-        })
-        .catch(error => {
-            console.error('Error loading the visualization:', error);
-            document.getElementById('chart').innerHTML = `
-                <div style="text-align: center; padding: 50px; color: #d9534f;">
-                    <h3>Error Loading Visualization</h3>
-                    <p>${error.message}</p>
-                    <p>Please check that the JSON file is correctly formatted and accessible.</p>
-                </div>
-            `;
-        });
-});
+{
+  "data": [
+    {
+      "type": "bar",
+      "x": [
+        "energy", "dog", "ghost", "combination lock", "handgun", "bomb", "light", "ice pick", "skull", "amplifier", "book", "mountain bike", "painting", "padlock", "stick", "electric dog", "drawer lock", "grease", "screwdriver", "blackboard", "counter", "laptop", "stone wall", "sock", "leaflet", "cup", "table", "moving object", "headphones", "blanket", "gas mask", "car wheel", "throne", "water cooler", "bottle", "monitor", "screen", "television", "remote", "radio", "window", "shelf", "milk", "saw", "drill bit", "scissors", "pen", "notebook", "form", "portrait", "mask", "microphone", "helmet", "bench", "door", "sliding door"
+      ],
+      "y": [
+        0.14, 0.1, 0.35, 0.31, 0.26, 0.25, 0.24, 0.23, 0.22, 0.21, 0.20, 0.19, 0.18, 0.17, 0.16, 0.15, 0.145, 0.14, 0.135, 0.13, 0.125, 0.12, 0.115, 0.11, 0.105, 0.1, 0.095, 0.09, 0.085, 0.08, 0.075, 0.07, 0.065, 0.06, 0.055, 0.05, 0.045, 0.04, 0.035, 0.03, 0.025, 0.02, 0.015, 0.27, 0.19, 0.18, 0.16, 0.15, 0.10, 0.09, 0.27, 0.17, 0.15, 0.10, 0.09, 0.08
+      ],
+      "marker": {
+        "color": [
+          "#8884d8", "#3366cc", "#ff7f0e", "#2ca02c", "#ff7f0e", "#ff7f0e", "#2ca02c", "#ff7f0e", "#2ca02c", "#1f77b4", "#2ca02c", "#2ca02c", "#2ca02c", "#ff7f0e", "#2ca02c", "#1f77b4", "#ff7f0e", "#2ca02c", "#ff7f0e", "#2ca02c", "#2ca02c", "#ff7f0e", "#2ca02c", "#2ca02c", "#2ca02c", "#2ca02c", "#2ca02c", "#2ca02c", "#ff7f0e", "#2ca02c", "#d62728", "#2ca02c", "#2ca02c", "#2ca02c", "#2ca02c", "#ff7f0e", "#ff7f0e", "#ff7f0e", "#ff7f0e", "#17becf", "#2ca02c", "#2ca02c", "#2ca02c", "#ff7f0e", "#ff7f0e", "#ff7f0e", "#2ca02c", "#2ca02c", "#2ca02c", "#2ca02c", "#d62728", "#17becf", "#d62728", "#2ca02c", "#9467bd", "#9467bd"
+        ]
+      },
+      "hoverinfo": "text",
+      "hovertext": [
+        "Object: energy<br>Type: other<br>Haunted Score: 0.14",
+        "Object: dog<br>Type: animal<br>Haunted Score: 0.10",
+        "Object: ghost<br>Type: other<br>Haunted Score: 0.35",
+        "Object: combination lock<br>Type: tool<br>Haunted Score: 0.31",
+        "Object: handgun<br>Type: weapon<br>Haunted Score: 0.26",
+        "Object: bomb<br>Type: weapon<br>Haunted Score: 0.25",
+        "Object: light<br>Type: other<br>Haunted Score: 0.24",
+        "Object: ice pick<br>Type: tool<br>Haunted Score: 0.23",
+        "Object: skull<br>Type: other<br>Haunted Score: 0.22",
+        "Object: amplifier<br>Type: electronics<br>Haunted Score: 0.21",
+        "Object: book<br>Type: stationery<br>Haunted Score: 0.20",
+        "Object: mountain bike<br>Type: other<br>Haunted Score: 0.19",
+        "Object: painting<br>Type: other<br>Haunted Score: 0.18",
+        "Object: padlock<br>Type: tool<br>Haunted Score: 0.17",
+        "Object: stick<br>Type: other<br>Haunted Score: 0.16",
+        "Object: electric dog<br>Type: electronics<br>Haunted Score: 0.15",
+        "Object: drawer lock<br>Type: tool<br>Haunted Score: 0.145",
+        "Object: grease<br>Type: other<br>Haunted Score: 0.14",
+        "Object: screwdriver<br>Type: tool<br>Haunted Score: 0.135",
+        "Object: blackboard<br>Type: stationery<br>Haunted Score: 0.13",
+        "Object: counter<br>Type: other<br>Haunted Score: 0.125",
+        "Object: laptop<br>Type: electronics<br>Haunted Score: 0.12",
+        "Object: stone wall<br>Type: other<br>Haunted Score: 0.115",
+        "Object: sock<br>Type: clothing<br>Haunted Score: 0.11",
+        "Object: leaflet<br>Type: stationery<br>Haunted Score: 0.105",
+        "Object: cup<br>Type: other<br>Haunted Score: 0.10",
+        "Object: table<br>Type: other<br>Haunted Score: 0.095",
+        "Object: moving object<br>Type: other<br>Haunted Score: 0.09",
+        "Object: headphones<br>Type: electronics<br>Haunted Score: 0.085",
+        "Object: blanket<br>Type: other<br>Haunted Score: 0.08",
+        "Object: gas mask<br>Type: protective gear<br>Haunted Score: 0.075",
+        "Object: car wheel<br>Type: other<br>Haunted Score: 0.07",
+        "Object: throne<br>Type: other<br>Haunted Score: 0.065",
+        "Object: water cooler<br>Type: other<br>Haunted Score: 0.06",
+        "Object: bottle<br>Type: other<br>Haunted Score: 0.055",
+        "Object: monitor<br>Type: electronics<br>Haunted Score: 0.05",
+        "Object: screen<br>Type: electronics<br>Haunted Score: 0.045",
+        "Object: television<br>Type: electronics<br>Haunted Score: 0.04",
+        "Object: remote<br>Type: electronics<br>Haunted Score: 0.035",
+        "Object: radio<br>Type: communication<br>Haunted Score: 0.03",
+        "Object: window<br>Type: other<br>Haunted Score: 0.025",
+        "Object: shelf<br>Type: other<br>Haunted Score: 0.02",
+        "Object: milk<br>Type: other<br>Haunted Score: 0.015",
+        "Object: saw<br>Type: tool<br>Haunted Score: 0.27",
+        "Object: drill bit<br>Type: tool<br>Haunted Score: 0.19",
+        "Object: scissors<br>Type: tool<br>Haunted Score: 0.18",
+        "Object: pen<br>Type: stationery<br>Haunted Score: 0.16",
+        "Object: notebook<br>Type: stationery<br>Haunted Score: 0.15",
+        "Object: form<br>Type: stationery<br>Haunted Score: 0.10",
+        "Object: portrait<br>Type: other<br>Haunted Score: 0.09",
+        "Object: mask<br>Type: protective gear<br>Haunted Score: 0.27",
+        "Object: microphone<br>Type: communication<br>Haunted Score: 0.17",
+        "Object: helmet<br>Type: protective gear<br>Haunted Score: 0.15",
+        "Object: bench<br>Type: other<br>Haunted Score: 0.10",
+        "Object: door<br>Type: infrastructure<br>Haunted Score: 0.09",
+        "Object: sliding door<br>Type: infrastructure<br>Haunted Score: 0.08"
+      ]
+    }
+  ],
+  "layout": {
+    "title": {
+      "text": "Average Haunted Score by Primary Object (Colored by Object Type)",
+      "font": {
+        "color": "black",
+        "size": 18
+      }
+    },
+    "paper_bgcolor": "rgba(240, 244, 255, 0.8)",
+    "plot_bgcolor": "rgba(240, 244, 255, 0.8)",
+    "font": {
+      "color": "black"
+    },
+    "xaxis": {
+      "title": {
+        "text": "Primary Detected Object",
+        "font": {
+          "color": "black"
+        }
+      },
+      "tickangle": -45,
+      "automargin": true
+    },
+    "yaxis": {
+      "title": {
+        "text": "Average Haunted Score",
+        "font": {
+          "color": "black"
+        }
+      },
+      "range": [0, 0.4]
+    },
+    "height": 750,
+    "margin": {
+      "l": 60,
+      "r": 30,
+      "t": 60,
+      "b": 140
+    },
+    "legend": {
+      "title": {
+        "text": "Object Type"
+      },
+      "x": 1.02,
+      "y": 1,
+      "bgcolor": "rgba(255, 255, 255, 0.5)",
+      "bordercolor": "rgba(0, 0, 0, 0.2)",
+      "borderwidth": 1
+    },
+    "showlegend": true
+  }
+}

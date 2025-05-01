@@ -88,7 +88,7 @@ function drawChart(data, keys) {
 
   // Legend
   const legend = svg.append("g")
-    .attr("transform", `translate(${width + 30}, 100)`)
+    .attr("transform", `translate(${width + 30}, 200)`)
     .attr("class", "legend");
 
   keys.forEach((key, i) => {

@@ -33,13 +33,25 @@
     fetch('haunted_objects_chart.json')
       .then(response => response.json())
       .then(chart => {
-        // Make chart background transparent
+        // Make background transparent
         chart.layout.paper_bgcolor = 'rgba(0,0,0,0)';
         chart.layout.plot_bgcolor = 'rgba(0,0,0,0)';
-        chart.layout.font = { color: 'white' }; // make axis labels white too
+        
+        // Force all font color to white
+        chart.layout.font = { color: 'white' };
+
+        // Make axis titles white (if needed)
+        chart.layout.xaxis = chart.layout.xaxis || {};
+        chart.layout.yaxis = chart.layout.yaxis || {};
+        chart.layout.xaxis.title = { ...chart.layout.xaxis.title, font: { color: 'white' } };
+        chart.layout.yaxis.title = { ...chart.layout.yaxis.title, font: { color: 'white' } };
+
+        // Make legend text white too
+        chart.layout.legend = { font: { color: 'white' } };
 
         Plotly.newPlot('chart', chart.data, chart.layout, {responsive: true});
       });
   </script>
 </body>
 </html>
+

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Elisa's Haunted Chart</title>
+  <meta charset="UTF-8">
+  <title>Eerie Locations</title>
   <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
   <style>
     body {
@@ -12,38 +12,37 @@
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
     }
-
+    h1 {
+      color: #ff6666;
+      margin: 20px;
+    }
     #chart {
-      width: 90vw;
-      height: 90vh;
+      width: 95vw;
+      height: 85vh;
+      background: none;
     }
   </style>
 </head>
 <body>
+  <h1>Eerie Locations</h1>
   <div id="chart"></div>
 
   <script>
     fetch('haunted_objects_chart.json')
       .then(response => response.json())
       .then(chart => {
-        // Set transparent background for Plotly
+        // Make background transparent
         chart.layout.paper_bgcolor = 'rgba(0,0,0,0)';
         chart.layout.plot_bgcolor = 'rgba(0,0,0,0)';
-        chart.layout.font = { color: 'white' };
-
-        // Optional: Let Plotly auto-set Y-axis range
-        if (chart.layout.yaxis) {
-          chart.layout.yaxis.autorange = true;
-        }
-
-        Plotly.newPlot('chart', chart.data, chart.layout, { responsive: true });
+        Plotly.newPlot('chart', chart.data, chart.layout);
       });
   </script>
 </body>
 </html>
+
+
 
 

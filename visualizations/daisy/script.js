@@ -1,6 +1,8 @@
-const margin = { top: 50, right: 180, bottom: 60, left: 90 },
-      width = 1800 - margin.left - margin.right,
-      height = 900 - margin.top - margin.bottom;
+const margin = { top: 30, right: 180, bottom: 60, left: 90 },
+      width = 1400 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom;
+
+let allData;
 
 const svg = d3.select("#chart")
   .append("svg")
@@ -19,12 +21,22 @@ const tooltip = d3.select("#chart")
   .style("border", "1px solid #ccc")
   .style("padding", "8px")
   .style("border-radius", "5px")
-  .style("font-size", "14px")
-  .style("pointer-events", "none");
+  .style("font-size", "14px");
+
+const color = d3.scaleOrdinal(d3.schemeTableau10);
+let activeKey = null;
 
 d3.json("./data/apparition_yearly.json").then(data => {
+  allData = data;
   const keys = Object.keys(data[0]).filter(k => k !== "Year");
-  let activeKey = null;
+  color.domain(keys);
+
+  drawChart(data, keys);
+  addBrush(d3.extent(data, d => d.Year), keys);
+});
+
+function drawChart(data, keys) {
+  svg.selectAll("*").remove();
 
   const stackedData = d3.stack().keys(keys)(data);
 
@@ -36,10 +48,6 @@ d3.json("./data/apparition_yearly.json").then(data => {
     .domain([0, d3.max(stackedData[stackedData.length - 1], d => d[1])])
     .range([height, 0]);
 
-  const color = d3.scaleOrdinal()
-    .domain(keys)
-    .range(d3.schemeTableau10);
-
   const area = d3.area()
     .curve(d3.curveBasis)
     .x(d => x(d.data.Year))
@@ -49,7 +57,6 @@ d3.json("./data/apparition_yearly.json").then(data => {
   const paths = svg.selectAll("path")
     .data(stackedData)
     .join("path")
-    .attr("class", d => "layer layer-" + d.key.replace(/\\s+/g, '-'))
     .attr("fill", d => color(d.key))
     .attr("d", area)
     .style("opacity", 0.85)
@@ -63,6 +70,7 @@ d3.json("./data/apparition_yearly.json").then(data => {
     })
     .on("mouseout", () => tooltip.style("visibility", "hidden"));
 
+  // Axes
   svg.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(x).tickFormat(d3.format("d")))
@@ -78,13 +86,12 @@ d3.json("./data/apparition_yearly.json").then(data => {
 
   svg.selectAll(".domain, .tick line").attr("stroke", "#777");
 
+  // Legend
   const legend = svg.append("g")
     .attr("transform", `translate(${width + 30}, 0)`)
     .attr("class", "legend");
 
   keys.forEach((key, i) => {
-    const safeKey = key.replace(/\\s+/g, '-');
-
     const row = legend.append("g")
       .attr("transform", `translate(0, ${i * 25})`)
       .style("cursor", "pointer")
@@ -111,4 +118,34 @@ d3.json("./data/apparition_yearly.json").then(data => {
       .style("fill", "white")
       .style("font-size", "14px");
   });
-});
+}
+
+// Add the brush slider below chart
+function addBrush(yearExtent, keys) {
+  const sliderSvg = d3.select("#slider")
+    .append("g")
+    .attr("transform", `translate(${margin.left},10)`);
+
+  const x = d3.scaleLinear()
+    .domain(yearExtent)
+    .range([0, width]);
+
+  sliderSvg.append("g")
+    .attr("transform", `translate(0,30)`)
+    .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+  const brush = d3.brushX()
+    .extent([[0, 0], [width, 30]])
+    .on("end", (event) => {
+      if (!event.selection) return;
+
+      const [x0, x1] = event.selection.map(x.invert);
+      const filtered = allData.filter(d => d.Year >= x0 && d.Year <= x1);
+      drawChart(filtered, keys);
+    });
+
+  sliderSvg.append("g")
+    .attr("class", "brush")
+    .call(brush)
+    .call(brush.move, x.range()); // default to full range
+}

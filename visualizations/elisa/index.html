@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Eerie Locations</title>
-  <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+  <meta charset="UTF-8" />
+  <title>Eerie Objects Visualization</title>
+  <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
   <style>
     body {
       background-color: #1a1a2e;
@@ -12,40 +12,35 @@
       margin: 0;
       padding: 0;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-    }
-    h1 {
-      margin-top: 20px;
-      color: #ff5c5c;
+      height: 100vh;
     }
     #chart {
-      width: 90vw;
-      height: 85vh;
+      width: 95vw;
+      height: 90vh;
     }
   </style>
 </head>
 <body>
-
-  <h1>Eerie Locations</h1>
   <div id="chart"></div>
 
   <script>
-    fetch('haunted_objects_chart.json')
+    fetch("haunted_objects_chart.json")
       .then(response => response.json())
-      .then(chart => {
-        // Override layout styles here to match the dark theme and white text
-        chart.layout.paper_bgcolor = 'rgba(0,0,0,0)';
-        chart.layout.plot_bgcolor = 'rgba(0,0,0,0)';
-        chart.layout.font = {
-          color: 'white',
-          family: 'sans-serif'
-        };
-        chart.layout.title = null; // removes the internal chart title
+      .then(fig => {
+        // Apply transparency and white font manually in browser too (as backup)
+        fig.layout.paper_bgcolor = 'rgba(0,0,0,0)';
+        fig.layout.plot_bgcolor = 'rgba(0,0,0,0)';
+        fig.layout.font = { color: 'white' };
 
-        Plotly.newPlot('chart', chart.data, chart.layout, {responsive: true});
-      });
+        // Remove duplicate title if needed
+        fig.layout.title = '';
+
+        Plotly.newPlot("chart", fig.data, fig.layout, { responsive: true });
+      })
+      .catch(error => console.error("Error loading chart:", error));
   </script>
-
 </body>
 </html>
+

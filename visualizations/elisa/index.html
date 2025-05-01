@@ -1,1 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Elisa's Haunted Chart</title>
+  <script src="https://cdn.plot.ly/plotly-2.20.0.min.js"></script>
+  <style>
+    body {
+      background-color: #1a1a2e;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    #chart {
+      width: 90vw;
+      height: 90vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="chart"></div>
+
+  <script>
+    fetch('haunted_objects_chart.json')
+      .then(response => response.json())
+      .then(chart => {
+        Plotly.newPlot('chart', chart.data, chart.layout);
+      });
+  </script>
+</body>
+</html>
 

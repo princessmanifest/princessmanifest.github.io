@@ -31,6 +31,16 @@ nav ul li a {
     text-decoration: none;
     color: #f05454;
     font-weight: bold;
+    padding: 10px 15px; /* Add padding to make it look more like a button/tab */
+    border-bottom: 3px solid transparent; /* Prepare for hover effect */
+    transition: background-color 0.3s, border-bottom 0.3s, color 0.3s; /* Smooth transition for hover */
+    display: inline-block; /* Needed for padding and border to work correctly */
+}
+
+nav ul li a:hover {
+    background-color: rgba(240, 84, 84, 0.2); /* Slight red background on hover */
+    color: #ffffff; /* White text on hover */
+    border-bottom: 3px solid #f05454; /* Red border appears on hover */
 }
 
 main {
@@ -38,5 +48,17 @@ main {
     justify-content: center;
     align-items: center;
     height: calc(100vh - 100px);
+}
+
+.main-image-container {
+    text-align: center; /* Center the image container */
+    margin: 20px 0; /* Add some space above and below */
+}
+
+.main-image {
+    max-width: 80%; /* Make image responsive, limit max width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: slightly rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow */
 }
 

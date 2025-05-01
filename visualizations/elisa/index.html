@@ -1,46 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Eerie Objects Visualization</title>
-  <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Eerie Locations</title>
+  <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" type="module"></script>
   <style>
     body {
       background-color: #1a1a2e;
       color: white;
       font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #ff5c5c;
     }
     #chart {
-      width: 95vw;
+      width: 90vw;
       height: 90vh;
+      margin: auto;
     }
   </style>
 </head>
 <body>
+
+  <h1>Eerie Locations</h1>
   <div id="chart"></div>
 
-  <script>
-    fetch("haunted_objects_chart.json")
-      .then(response => response.json())
-      .then(fig => {
-        // Apply transparency and white font manually in browser too (as backup)
-        fig.layout.paper_bgcolor = 'rgba(0,0,0,0)';
-        fig.layout.plot_bgcolor = 'rgba(0,0,0,0)';
-        fig.layout.font = { color: 'white' };
-
-        // Remove duplicate title if needed
-        fig.layout.title = '';
-
-        Plotly.newPlot("chart", fig.data, fig.layout, { responsive: true });
-      })
-      .catch(error => console.error("Error loading chart:", error));
-  </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
+
 

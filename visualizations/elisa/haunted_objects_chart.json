@@ -3613,3 +3613,4 @@
     "height": 750
   }
 }
+fig.layout.template = None

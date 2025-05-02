@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Haunted Objects Chart</title>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haunted Object Scores</title>
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
   <style>
     body {
+      background-color: #0e0e2c;
+      color: #ffffff;
+      font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
-      background-color: #0b0b2e;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 20px;
     }
     h1 {
-      color: #ff4c4c;
-      margin-top: 20px;
+      text-align: center;
+      color: #ff5c5c;
     }
-    #chart {
-      width: 95vw;
-      height: 80vh;
+    #chart-container {
+      margin: auto;
+      max-width: 1200px;
     }
   </style>
 </head>
 <body>
   <h1>Eerie Locations</h1>
-  <div id="chart">Loading chart...</div>
+  <div id="chart-container">
+    <div id="bar-chart"></div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
+

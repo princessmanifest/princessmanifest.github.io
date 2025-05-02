@@ -1,15 +1,17 @@
-fetch("haunted_objects_chart.json")
+fetch('haunted_objects_chart.json')
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return response.json();
   })
-  .then(chartData => {
-    Plotly.newPlot('chart', chartData.data, chartData.layout);
+  .then(data => {
+    Plotly.newPlot('bar-chart', data.data, data.layout, {responsive: true});
   })
   .catch(error => {
-    document.getElementById("chart").innerHTML =
-      `Error loading chart: ${error.message}<br>Please refresh the page or try again later.`;
-    console.error("Chart loading error:", error);
+    console.error('Error loading chart:', error);
+    const chartContainer = document.getElementById('bar-chart');
+    chartContainer.innerHTML = `<p style="color:white">Error loading chart: ${error.message}<br>Please check the JSON file path or format.</p>`;
   });
+
+
